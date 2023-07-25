@@ -42,7 +42,7 @@ class WashingMachine extends Machine { //isA
 	
 		Laundry wash(WashingPowder washPowder, Water water, Electricity elect, Cloth cloth[]) {
 			
-			int numberOfCloths = cloth.length;
+		int numberOfCloths = cloth.length;
 	        float waterUsed = water.getQuantity(); 
 	        float electricityUsed = elect.getUnitUsed() * elect.getVoltage(); 
 
