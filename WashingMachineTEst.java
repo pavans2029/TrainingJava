@@ -2,7 +2,7 @@
 public class WashingMachineTEst {
 	public static void main(String[] args) {
 		
-		WashingPowder washPowder = new WashingPowder(100, "Nirma", "Front Load", true, 10.0f);
+	WashingPowder washPowder = new WashingPowder(100, "Nirma", "Front Load", true, 10.0f);
         Water water = new Water("Tap", 20, "Cold");
         Electricity electricity = new Electricity("AC", 220.0f, 8, 2, "PowerCo");
 
