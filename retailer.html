@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Retailer Details App</title>
+  <script src="https://unpkg.com/vue@3.2.0/dist/vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>Retailer Details</h1>
+
+    <!-- Retailer Details Form -->
+    <form @submit.prevent="saveRetailer">
+      <label>Retailer Name:</label>
+      <input v-model="retailer.retailer_name" required>
+      <br>
+      <label>Contact Email:</label>
+      <input v-model="retailer.contact_email" required>
+      <br>
+      <label>Contact Phone:</label>
+      <input v-model="retailer.contact_phone">
+      <br>
+      <label>Address Line 1:</label>
+      <input v-model="retailer.address_line1">
+      <br>
+      <label>Address Line 2:</label>
+      <input v-model="retailer.address_line2">
+      <br>
+      <label>City:</label>
+      <input v-model="retailer.city">
+      <br>
+      <label>State:</label>
+      <input v-model="retailer.state">
+      <br>
+      <label>Postal Code:</label>
+      <input v-model="retailer.postal_code">
+      <br>
+      <label>Country:</label>
+      <input v-model="retailer.country">
+      <br>
+      <label>Registration Date:</label>
+      <input type="date" v-model="retailer.registration_date" required>
+      <br>
+      <label>Website URL:</label>
+      <input type="url" v-model="retailer.website_url">
+      <br>
+      <label>Is Verified:</label>
+      <input type="checkbox" v-model="retailer.is_verified">
+      <br>
+      <button type="submit">Save Retailer</button>
+    </form>
+
+    <!-- Retailer List -->
+    <h2>Retailer List</h2>
+    <ul>
+      <li v-for="retailer in retailers" :key="retailer.retailer_id">
+        {{ retailer.retailer_name }} - {{ retailer.contact_email }}
+        <button @click="editRetailer(retailer)">Edit</button>
+        <button @click="deleteRetailer(retailer.retailer_id)">Delete</button>
+      </li>
+    </ul>
+  </div>
+
+  <script src="https://unpkg.com/vue@3.2.20/dist/vue.global.js"></script>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          retailer: {
+            retailer_id: null,
+            retailer_name: '',
+            contact_email: '',
+            contact_phone: '',
+            address_line1: '',
+            address_line2: '',
+            city: '',
+            state: '',
+            postal_code: '',
+            country: '',
+            registration_date: '',
+            website_url: '',
+            is_verified: false,
+          },
+          retailers: [],
+        };
+      },
+      methods: {
+        saveRetailer() {
+          if (this.retailer.retailer_id === null) {
+            // Creating a new retailer
+            this.retailers.push({ ...this.retailer, retailer_id: this.retailers.length + 1 });
+          } else {
+            // Updating an existing retailer
+            const index = this.retailers.findIndex(r => r.retailer_id === this.retailer.retailer_id);
+            if (index !== -1) {
+              this.retailers.splice(index, 1, this.retailer);
+            }
+          }
+
+          this.clearForm();
+        },
+        editRetailer(retailer) {
+          // Populating the form with retailer data for editing
+          this.retailer = { ...retailer };
+        },
+        deleteRetailer(retailerId) {
+          // Deleting retailer by ID
+          this.retailers = this.retailers.filter(r => r.retailer_id !== retailerId);
+        },
+        clearForm() {
+          // Clearing the form fields after saving
+          this.retailer = {
+            retailer_id: null,
+            retailer_name: '',
+            contact_email: '',
+            contact_phone: '',
+            address_line1: '',
+            address_line2: '',
+            city: '',
+            state: '',
+            postal_code: '',
+            country: '',
+            registration_date: '',
+            website_url: '',
+            is_verified: false,
+          };
+        },
+      },
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
